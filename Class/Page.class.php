@@ -54,7 +54,7 @@ class Page {
     <div class='field'>
       <label class='label'>Entreprise</label>
       <div class='control'>
-        <div class='select'>
+        <div class='select is-fullwidth'>
           <select name='idEntreprise'>
 		        <option value='-1'>None</option>
 		";
@@ -92,7 +92,7 @@ class Page {
     <div class='field'>
       <label class='label'>Entreprise</label>
       <div class='control'>
-        <div class='select'>
+        <div class='select is-fullwidth'>
           <select name='idEntreprise'>
             <option value='-1'>None</option>";
 
