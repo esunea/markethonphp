@@ -6,7 +6,7 @@ require_once("Class/Bdd.class.php");
 class Offre{
 	//apeller les methodes statiques pour initialiser un objet
 	private $bdd;
-	private $id;
+	private $id = -1	;
 	private $idEntreprise;
 	private $name;
 	function __construct($id = 0){

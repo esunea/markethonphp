@@ -1,4 +1,4 @@
-<?
+<?php
 class Bdd {
 
 	
@@ -26,8 +26,16 @@ class Bdd {
 		return $result->fetchAll();
 	}
 	function saveOffre($offre){
-		$query = $this->db->prepare("INSERT INTO offre (name,idEntreprise) VALUES (:name,:idEntreprise)");
-		$query->execute(array('name'=>$offre->getName(),'idEntreprise'=>$offre->getIdEntreprise()));
+		if($offre->getId() == -1){
+			$query = $this->db->prepare("INSERT INTO offre (name,idEntreprise) VALUES (:name,:idEntreprise)");
+			$query->execute(array('name'=>$offre->getName(),'idEntreprise'=>$offre->getIdEntreprise()));
+		}else{
+			
+			$query = $this->db->prepare("UPDATE offre SET name = :name, identreprise = :idEntreprise WHERE id=:id");
+			var_dump($query->execute(array('name'=>$offre->getName(),'idEntreprise'=>$offre->getIdEntrprise(),'id'=>$offre->getId())));
+		}
+
+
 	}
 	function getEntrepriseById($id){
 		$result = $this->db->prepare('SELECT * FROM entreprise WHERE id = :id');
@@ -35,10 +43,16 @@ class Bdd {
 		return $result->fetchAll();
 	}
 	function saveEntreprise($entreprise){
-		$query = $this->db->prepare("INSERT INTO entreprise (name) VALUES (:name)");
-		$query->execute(array('name'=>$entreprise->getName()));
+		
+		if($entreprise->getId() == -1){
+			$query = $this->db->prepare("INSERT INTO entreprise (name) VALUES (:name)");
+			$query->execute(array('name'=>$entreprise->getName()));
+		}else{
+			$query = $this->db->prepare("UPDATE entreprise SET name = :name WHERE id=:id");
+			$query->execute(array('name'=>$entreprise->getName(),'id'=>$entreprise->getId()));
+		}
 	}
-	function getNameIdEntreprise(){
+	function AllEntreprise(){
 		$result = $this->db->prepare('SELECT id,name FROM entreprise');
 		$result->execute();
 		return $result->fetchAll();
@@ -47,6 +61,14 @@ class Bdd {
 		$result = $this->db->prepare('SELECT name FROM entreprise WHERE id = :id');
 		$result->execute(array('id'=>$id));
 		return $result->fetchAll();
+	}
+	function deleteEntreprise($id){
+		$result = $this->db->prepare('DELETE FROM entreprise WHERE id = :id');
+		$result->execute(array('id'=>$id));
+	}
+	function deleteOffre($id){
+		$result = $this->db->prepare('DELETE FROM offre WHERE id = :id');
+		$result->execute(array('id'=>$id));
 	}
 	
 

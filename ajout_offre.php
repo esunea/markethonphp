@@ -11,4 +11,4 @@ if(isset($_POST['OK'])){
 		$page->renderOffreFail();
 	}
 }
-$page->renderOffreForm(getArrayNameIdEntreprise());
+$page->renderOffreForm(getMapNameIdEntreprise());

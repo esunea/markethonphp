@@ -2,6 +2,9 @@
 //phpinfo();
 require_once("functions.php");
 
+// todo refactorer IdEntreprise en entrprise_id
+// quand ON ESSAYE D'editer une offre qui n'existe pas
+// mettre les verifs dans le modèle et retourner vrai ou faux
 
 //$Offre = new Offre();
 //$Offre->OffreByProperties('kevin');

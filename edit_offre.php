@@ -18,7 +18,7 @@ else{
 			$offre = new Offre($_GET['id']);
 			if($offre->getId() != -1){
 			// l'offre peut s'fficher aka id existe et est numerique. si la bdd ne retourne rien, offre->id = -1;
-				$page->renderOffreUpdate($offre);
+				$page->renderOffreUpdate(getMapNameIdEntreprise(),$offre);
 			}
 		}else{
 			$page->renderOffreNotFound();

@@ -27,56 +27,42 @@ class Page {
 		";
 		echo($this->content);
 	}
-	function renderEntrepriseForm(){
+
+	// offre *******************************************************
+
+
+	
+	function renderOffreUpdate($listOfEntreprises, $offre){
+		// $this->content .="
+		// <form action='' method='post'>
+		// <input type='text' name='name' value='".$offre->getName()."'>
+		// <input type='submit' name='OK'>
+		// </form>
+		// ";
+
 		$this->content .="
 		<form action='' method='post'>
-		<input type='text' name='name'>
+		<select name='idEntreprise'>
+		<option value='-1'>None</option>
+		";
+
+		foreach ($listOfEntreprises as $id => $name) {
+
+			if($id== $offre->getIdEntreprise()){
+				$this->content .="
+				<option value='".$id."' selected>".$name."</option>
+				";
+			}else{
+				$this->content .="
+				<option value='".$id."'>".$name."</option>
+				";
+			}
+		}
+		$this->content .="
+		</select>
+		<input type='text' name='name' value='".$offre->getName()."'>
 		<input type='submit' name='OK'>
 		</form>
-		";
-	}
-	// function renderOffreUpdate($offre){
-	// 	$this->content .="
-	// 	<form action='' method='post'>
-	// 	<input type='text' name='name' value='".$offre->getName()."'>
-	// 	<input type='submit' name='OK'>
-	// 	</form>
-	// 	";
-
-	// 	$this->content .="
-	// 	<form action='' method='post'>
-	// 	<select name='idEntreprise'>";
-
-	// 	foreach ($array as $key => $value) {
-	// 		$this->content .="
-	// 		<option value='".$key."'>".$value."</option>
-	// 		";
-	// 	}
-	// 	$this->content .="
-	// 	</select>
-	// 	<input type='text' name='name'>
-	// 	<input type='submit' name='OK'>
-	// 	</form>
-	// 	";
-	// }
-
-	function renderEntrepriseUpdate($entreprise){
-		$this->content .="
-		<form action='' method='post'>
-		<input type='text' name='name' value='".$entreprise->getName()."'>
-		<input type='submit' name='OK'>
-		</form>
-		";
-	}
-
-	function renderEntrepriseSucces(){
-		$this->content .="
-		<p>l'entreprise a été correctement ajoutée</p>
-		";
-	}
-	function renderEntrepriseFail(){
-		$this->content .="
-		<p>l'entreprise n'as pas été ajoutée</p>
 		";
 	}
 	function renderOffreForm($array){
@@ -96,15 +82,17 @@ class Page {
 		</form>
 		";
 	}
-	function renderOffreSucces(){
+	function renderOffreSucces($id=0){
 		$this->content .="
 		<p>l'offre a été correctement ajoutée</p>
 		";
+		if($id==1)$this->content .= "(modifications)";
 	}
-	function renderOffreFail(){
+	function renderOffreFail($id=0){
 		$this->content .="
 		<p>l'offre n'as pas été ajoutée</p>
 		";
+		if($id==1)$this->content .= "(modifications)";
 	}
 	function renderOffreDetail($offre){
 		$this->content .="
@@ -115,6 +103,62 @@ class Page {
 		</section>
 		";
 	}
+	function renderOffreNotFound(){
+		$this->content .= "
+		<p>Cette offre n'existe pas </p>
+		";
+	}
+	function renderConfirmDeleteOffre(){
+		$this->content .="
+		<p>L'offre a bien été supprimée</p>
+		";	
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function renderEntrepriseUpdate($entreprise){
+		$this->content .="
+		<form action='' method='post'>
+		<input type='hidden' name='id' value=".$entreprise->getId().">
+		<input type='text' name='name' value='".$entreprise->getName()."'>
+		<input type='submit' name='OK'>
+		</form>
+		<a href='delete_entreprise.php?id=".$entreprise->getId()."'>Delete</a>
+		";
+	}
+	function renderEntrepriseForm(){
+		$this->content .="
+		<form action='' method='post'>
+		<input type='text' name='name'>
+		<input type='submit' name='OK'>
+		</form>
+		";
+	}
+	function renderEntrepriseSucces($id=0){
+		$this->content .="
+		<p>l'entreprise a été correctement ajoutée</p>
+		";
+		if($id==1)$this->content .= "(modifications)";
+	}
+	function renderEntrepriseFail($id=0){
+		$this->content .="
+		<p>l'entreprise n'as pas été ajoutée</p>
+		";
+		if($id==1)$this->content .= "(modifications)";
+	}
+	
+	
+
 	function renderEntrepriseDetail($entreprise){
 		$this->content .="
 		<section>
@@ -123,24 +167,27 @@ class Page {
 		</section>
 		";
 	}
-	function renderOffreNotFound(){
-		$this->content .= "
-		<p>Cette offre n'existe pas </p>
-		";
-	}
+	
 	function renderEntrepriseNotFound(){
 		$this->content .= "
 		<p>Cette entreprise n'existe pas </p>
 		";
 	}
+
+
+
+	function renderConfirmDeleteEntreprise(){
+		$this->content .="
+		<p>L'entreprise a bien été supprimée</p>
+		";	
+	}
+
+
 	function renderNotFound(){
 		$this->content .="
 		<p>Stop asking for this page or you'll create a f**kin space-time rift that will annihilate the  human race and maybe the whole universe</p>
 		";
 	}
-
-
-
 	function renderMenu(){
 		$this->content .="
 		<nav>

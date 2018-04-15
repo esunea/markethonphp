@@ -4,8 +4,8 @@ require_once("Class/Page.class.php");
 require_once("Class/Offre.class.php");
 require_once("Class/Entreprise.class.php");
 
-function getArrayNameIdEntreprise(){
-	$array = Bdd::getInstance()->getNameIdEntreprise();
+function getMapNameIdEntreprise(){
+	$array = Bdd::getInstance()->AllEntreprise();
 	
 	$returnArray = array();
 	foreach ($array as $key => $value) {
