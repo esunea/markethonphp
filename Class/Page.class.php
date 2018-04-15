@@ -35,6 +35,40 @@ class Page {
 		</form>
 		";
 	}
+	// function renderOffreUpdate($offre){
+	// 	$this->content .="
+	// 	<form action='' method='post'>
+	// 	<input type='text' name='name' value='".$offre->getName()."'>
+	// 	<input type='submit' name='OK'>
+	// 	</form>
+	// 	";
+
+	// 	$this->content .="
+	// 	<form action='' method='post'>
+	// 	<select name='idEntreprise'>";
+
+	// 	foreach ($array as $key => $value) {
+	// 		$this->content .="
+	// 		<option value='".$key."'>".$value."</option>
+	// 		";
+	// 	}
+	// 	$this->content .="
+	// 	</select>
+	// 	<input type='text' name='name'>
+	// 	<input type='submit' name='OK'>
+	// 	</form>
+	// 	";
+	// }
+
+	function renderEntrepriseUpdate($entreprise){
+		$this->content .="
+		<form action='' method='post'>
+		<input type='text' name='name' value='".$entreprise->getName()."'>
+		<input type='submit' name='OK'>
+		</form>
+		";
+	}
+
 	function renderEntrepriseSucces(){
 		$this->content .="
 		<p>l'entreprise a été correctement ajoutée</p>
@@ -77,6 +111,7 @@ class Page {
 		<section>
 		<h1>offre: ".$offre->getName()."</h1>
 		<p>entreprise: ".$offre->getEntrepriseName()."</p>
+		<a href='edit_offre.php?id=".$offre->getId()."'>Edit</a>
 		</section>
 		";
 	}
@@ -84,6 +119,7 @@ class Page {
 		$this->content .="
 		<section>
 		<h1>Entreprise: ".$entreprise->getName()."</h1>
+		<a href='edit_entreprise.php?id=".$entreprise->getId()."'>Edit</a>
 		</section>
 		";
 	}

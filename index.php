@@ -8,7 +8,6 @@ require_once("functions.php");
 //$Offre->save();
 //$bdd = new Bdd();
 //$bdd->getAnything();
-
 $page = new Page();
 
 //$tab = array('id'=>1);
