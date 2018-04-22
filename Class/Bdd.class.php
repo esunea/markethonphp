@@ -15,7 +15,7 @@ class Bdd {
 		
 		return self::$_instance;
 	}
-
+	// input filter mail
 
 	function __construct(){
 		$this->db = new PDO('mysql:host=localhost;dbname=markethon;charset=utf8mb4', 'root', 'root');
@@ -70,8 +70,23 @@ class Bdd {
 		$result = $this->db->prepare('DELETE FROM offre WHERE id = :id');
 		$result->execute(array('id'=>$id));
 	}
-	
+	function registerUser($user){
+		$query = $this->db->prepare("INSERT INTO user (login,pass,mail) VALUES (:login,:pass,:mail)");
 
-	
-
+		return $query->execute(array('login'=>$user->getLogin(),'pass'=>$user->getPass(),'mail'=>$user->getMail()));
+	}
+	function authenticate($login,$pass){
+		$query = $this->db->prepare("SELECT * FROM user WHERE login = :login");
+		$query->execute(array('login'=> $login));
+		$result = $query->fetchAll();
+		var_dump($result);
+		if(count($result) == 1){
+			if($result[0]['pass'] == $pass){
+				return $result[0];
+			}
+		}else{
+			echo('2 logins identiques');
+		}
+		return false;
+	}
 }

@@ -3,10 +3,10 @@
 // classe de base, avec des propriétés et des méthodes membres
 class Page {
 	private $content = "";
-
+	private $user ;
 	function __construct()
 	{
-
+		$user = User::getInstance();
 		$this->content .="
 		<!DOCTYPE html>
 		<html lang='en'>
@@ -17,7 +17,15 @@ class Page {
 		<body>
 		<h1>PAGE</h1>
 		";
-		$this->renderMenu();
+
+		$this->renderMenu($user->isConnected());
+		if($user->isConnected()){
+			$this->content .= "
+			hello there
+			";
+		}else{
+			$this->renderLoginForm();
+		}
 	}
 	function __destruct(){
 
@@ -114,10 +122,42 @@ class Page {
 		";	
 	}
 
+// USER *************************
 
 
+	function renderUserForm(){
+		$this->content .="
+		<form action='' method='post'>
+		<input type='text' name='login' placeholder='Login'>
+		<input type='text' name='pass' placeholder='pass'>
+		<input type='mail' name='mail' placeholder='mail'>
+		<input type=submit name='OK'>
+		</form>
+		";	
+	}
+	function renderUserSucces($id=0){
+		$this->content .="
+		<p>l'utilisateur a été correctement ajoutée</p>
+		";
+		if($id==1)$this->content .= "(modifications)";
+	}
+	function renderUserFail($id=0){
+		$this->content .="
+		<p>l'utilisateur n'as pas été ajoutée</p>
+		";
+		if($id==1)$this->content .= "(modifications)";
+	}
 
-
+	function renderLoginForm(){
+		$this->content .="
+		<form action='login.php' method='post'>
+		<input type='text' name='login' placeholder='Login'>
+		<input type='text' name='pass' placeholder='pass'>
+		<input type=submit name='OK'>
+		</form>
+		";
+	}
+	// entreprise *******************************
 
 
 
@@ -138,9 +178,9 @@ class Page {
 	}
 	function renderEntrepriseForm(){
 		$this->content .="
-		<form action='' method='post'>
-		<input type='text' name='name'>
-		<input type='submit' name='OK'>
+		<form action='' method='post'><br/>
+		<input type='text' name='name'><br/>
+		<input type='submit' name='OK'><br/>
 		</form>
 		";
 	}
@@ -185,17 +225,31 @@ class Page {
 
 	function renderNotFound(){
 		$this->content .="
-		<p>Stop asking for this page or you'll create a f**kin space-time rift that will annihilate the  human race and maybe the whole universe</p>
+		<p>Stop asking for this page or you'll create a f**kin space-time rift that will annihilate the human race and maybe the whole universe</p>
 		";
 	}
-	function renderMenu(){
+	function renderMenu($isConnected = false){
 		$this->content .="
 		<nav>
-		<a href='ajout_entreprise.php'> Ajout entreprise</a>
-		<a href='ajout_offre.php'> Ajout offre</a>
-		<a href='affiche_offre.php?id=1'> Affiche offre</a>
-		<a href='affiche_entreprise.php?id=1'> Affiche entreprise</a>
+		";
+		if ($isConnected) {
+			$this->content .="
+			<a href='ajout_entreprise.php'> Ajout entreprise</a>
+			<a href='ajout_offre.php'> Ajout offre</a>
+			<a href='affiche_offre.php?id=1'> Affiche offre</a>
+			<a href='affiche_entreprise.php?id=1'> Affiche entreprise</a>
+			<a href='logout.php'>logout</a>
+			";
+		}else{
+			$this->content .="
+			<a href='inscription.php'>inscription</a>
+			";
+		}
+		
+		
+		$this->content .="
 		</nav>
+		<br/>
 		";
 	}
 
