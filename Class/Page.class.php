@@ -2,6 +2,8 @@
 
 // classe de base, avec des propriétés et des méthodes membres
 class Page {
+	
+
 	private $content = "";
 	private $user ;
 	function __construct()

@@ -18,7 +18,7 @@ class Bdd {
 	// input filter mail
 
 	function __construct(){
-		$this->db = new PDO('mysql:host=localhost;dbname=markethon;charset=utf8mb4', 'root', 'root');
+		$this->db = new PDO('mysql:host=localhost;dbname=markethon;charset=utf8mb4', 'root', '');
 	}
 	function getOffreById($id){
 		$result = $this->db->prepare('SELECT * FROM offre WHERE id = :id');
