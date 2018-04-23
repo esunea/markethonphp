@@ -6,7 +6,7 @@ require_once("Class/Bdd.class.php");
 class Offre{
 	//apeller les methodes statiques pour initialiser un objet
 	private $bdd;
-	private $id = -1	;
+	private $id = -1;
 	private $idEntreprise;
 	private $name;
 	function __construct($id = 0){
@@ -25,9 +25,10 @@ class Offre{
 			$this->id = -1;
 		}
 	}
-	function offreByProperties($name, $idEntreprise=0){
+	function offreByProperties($name, $idEntreprise=0, $id=-1){
 		$this->name = $name;
 		$this->idEntreprise = $idEntreprise;
+		$this->id = $id;
 	}
 	function save(){
 		$this->bdd->saveOffre($this);

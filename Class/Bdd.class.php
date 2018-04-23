@@ -89,4 +89,18 @@ class Bdd {
 		}
 		return false;
 	}
+	function getEntrepriseList($page){
+		$result = $this->db->prepare('SELECT * FROM entreprise LIMIT :page, :offset');
+		$result->bindValue(':page', (int) ($page*OFFSET), PDO::PARAM_INT);
+		$result->bindValue(':offset', (int) OFFSET, PDO::PARAM_INT); 
+		$result->execute();
+		return $result->fetchAll();
+	}
+	function getOffreList($page){
+		$result = $this->db->prepare('SELECT * FROM offre LIMIT :page, :offset');
+		$result->bindValue(':page', (int) ($page*OFFSET), PDO::PARAM_INT);
+		$result->bindValue(':offset', (int) OFFSET, PDO::PARAM_INT); 
+		$result->execute();
+		return $result->fetchAll();
+	}
 }
