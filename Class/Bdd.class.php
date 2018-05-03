@@ -103,4 +103,14 @@ class Bdd {
 		$result->execute();
 		return $result->fetchAll();
 	}
+	function getCountEntreprise(){
+		$result = $this->db->prepare('SELECT count(id)as count FROM entreprise');
+		$result->execute();
+		return $result->fetchAll();
+	}
+	function getCountOffre(){
+		$result = $this->db->prepare('SELECT count(id)as count FROM offre');
+		$result->execute();
+		return $result->fetchAll();
+	}
 }

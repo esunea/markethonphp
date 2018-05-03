@@ -34,7 +34,9 @@ class Page {
 			hello there
 			";
 		}else{
+			if(basename($_SERVER["SCRIPT_FILENAME"]) != "inscription.php"){
 			$this->renderLoginForm();
+		}
 		}
 	}
 	function __destruct(){
@@ -149,6 +151,17 @@ class Page {
 		</section>
 		";
 	}
+	function renderOffreListItem($offre){
+		$this->content .="
+		<a href='affiche_offre.php?id=".$offre->getId()."'>
+		<section class='content'>
+		<h2>Offre: ".$offre->getName()."</h2>
+		<p><strong>Entreprise:</strong> ".$offre->getEntrepriseName()."</p>
+		</section>
+		</a>
+		<br/>
+		";
+	}
 	function renderOffreNotFound(){
     $this->content .= $this->renderNotification("Cette offre n'existe pas", "warning");
 	}
@@ -247,6 +260,17 @@ class Page {
 		</section>
 		";
 	}
+	function renderEntrepriseListItem($entreprise){
+		$this->content .="
+		<a href='affiche_entreprise.php?id=".$entreprise->getId()."'>
+		<section class='content'>
+		<h2>Entreprise: ".$entreprise->getName()."</h2><br/>
+		
+		</section>
+		</a>
+		<br/>
+		";
+	}
 
 	function renderEntrepriseNotFound(){
     $this->content .= $this->renderNotification("Cette entreprise n'existe pas", "warning");
@@ -271,25 +295,25 @@ class Page {
 
 
 		$this->content .="
-		<nav>
+		<nav class='tabs is-centered'>
+		<ul>
 		";
 		if ($isConnected) {
 			$this->content .="
-			<ul>
-        ".$this->renderMenuLink('affiche_entreprise.php', 'Affiche entreprise')."
+        ".$this->renderMenuLink('list_entreprise.php', 'Affiche entreprise')."
         ".$this->renderMenuLink('ajout_entreprise.php', 'Ajout entreprise')."
-        ".$this->renderMenuLink('affiche_offre.php', 'Affiche offre')."
+        ".$this->renderMenuLink('list_offre.php', 'Affiche offre')."
         ".$this->renderMenuLink('ajout_offre.php', 'Ajout offre')."
-        ".$this->renderMenuLink('logout.php', 'Deconnexion')."
-        
-      </ul>
+        ".$this->renderMenuLink('logout.php', 'Deconnexion')."  
 			";
 		}else{
 			$this->content .="
 			".$this->renderMenuLink('inscription.php', 'Inscription')."
+			".$this->renderMenuLink('index.php', 'Connexion')."
 			";
 		}
 		$this->content .="
+		    </ul>
 		</nav>
 		<div class='container' style='padding: 1rem 1.5rem;'>
 		";
@@ -301,6 +325,9 @@ class Page {
       return "<li class='is-active'><a href='".$filename."'>".$label."</a></li>";
     }
     return "<li><a href='".$filename."'>".$label."</a></li>";
+  }
+  function paginationLink($text, $page){
+  	$this->content .="<a href='?id=".$page."'>".$text."</a>";
   }
 
 
