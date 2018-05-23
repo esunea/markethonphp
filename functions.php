@@ -12,12 +12,12 @@ require_once("Class/User.class.php");
 
 function getMapNameIdEntreprise(){
 	$array = Bdd::getInstance()->AllEntreprise();
-	
+
 	$returnArray = array();
 	foreach ($array as $key => $value) {
-		$returnArray[$value['id']] = $value['name']; 
+		$returnArray[$value['id']] = $value['name'];
 	}
-	
+
 	return $returnArray;
 }
 
